@@ -201,6 +201,7 @@ code {
   border-radius: 2px;
 }
 pre {
+  font-size: 12px;
   padding: 1.5em;
   border-radius: 8px;
 }
