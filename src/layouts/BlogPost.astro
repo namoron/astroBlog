@@ -7,7 +7,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate} = Astro.props;
 ---
 
 <html lang="en">
@@ -143,7 +143,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			const pageTop = document.getElementById('page-top');
 			
 			if (pageTop) {
-				if (window.pageYOffset >= 400) {
+				if (window.scrollY >= 400) { 
 					pageTop.classList.add('fadein');
 				} else {
 					pageTop.classList.remove('fadein');
@@ -151,5 +151,6 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			}
 		});
 	</script>
+	
 	
 </html>
