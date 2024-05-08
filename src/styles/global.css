@@ -200,10 +200,17 @@ code {
   background-color: rgb(var(--gray-light));
   border-radius: 2px;
 }
+.remark-code-title {
+  color: #e3e6ee;
+  padding: 0px 20px 0px 20px;
+  display: inline-block;
+  background-color: #24292e;
+  border-radius: 8px 8px 0 0;
+}
 pre {
   font-size: 12px;
   padding: 1.5em;
-  border-radius: 8px;
+  border-radius: 8px ;
 }
 pre > code {
   all: unset;

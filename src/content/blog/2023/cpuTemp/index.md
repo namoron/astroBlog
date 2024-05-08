@@ -2,7 +2,6 @@
 title: CPU温度をメールで知らせる
 description: "Lorem ipsum dolor sit amet"
 pubDate: "2023-12-27"
-heroImage: "./2023/cputTemp.jpeg"
 ---
 
 ### きっかけ
