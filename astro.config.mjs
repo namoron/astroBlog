@@ -8,7 +8,7 @@ import remarkCodeTitles from "remark-flexible-code-titles";
 // https://astro.build/config
 export default defineConfig({
   site: "https://example.com",
-  // integrations: [mdx(), sitemap(), tailwind()],
+  integrations: [mdx(), sitemap(), tailwind()],
   // markdown: {
   //   remarkPlugins: [remarkCodeTitles],
   // },
