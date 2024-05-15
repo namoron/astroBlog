@@ -6,7 +6,7 @@ pubDate: "2024-05-16"
 
 ## 概要
 
-デフォルトの PowerShell が気に入らなかったので WSL や Clink,cmd を試した結果 1 週回って PowerShell に落ち着いた
+デフォルトの PowerShell が気に入らなかったので WSL や Clink,cmd を試した結果 1 周回って PowerShell に落ち着いた
 
 #### 良かったこと
 
