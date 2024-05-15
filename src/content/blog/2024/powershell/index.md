@@ -27,9 +27,12 @@ pubDate: "2024-05-16"
 - Oh My Posh
 - eza
 
+### 最低限
+Powershell のプロファイルの上部を書いておけば幸せになります.
+
 ### Powershell のプロファイル
 
-##### "C:\Users\"user_name"\OneDrive\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
+##### "C:\Users\ {{"user_name"}}\OneDrive\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
 
 ```ps1
 remove-item alias:ls
@@ -53,6 +56,7 @@ function lt() {
     eza -T -L 3 -a -I 'node_modules|.git|.cache' --icons
 }
 
+#とりあえず以上を書いとけば幸せ
 #######################################################################################
 # 以下はおまけ
 
@@ -104,7 +108,7 @@ if(-not $env:path.Split(';').Contains('.')){
 
 ### wezterm のプロファイル
 
-##### C:\Users\shiro\.config\wezterm\wezterm.lua
+##### C:\Users\ {{"user_name"}}\.config\wezterm\wezterm.lua
 
 ```lua
 local wezterm = require 'wezterm';
@@ -275,7 +279,7 @@ return {
 ```
 
 ### oh-my-posh のカスタマイズ(ベース : illusi0n.omp.json)
-##### "C:\Users\"user_name"\AppData\Local\Programs\oh-my-posh\themes\sample.omp.json"
+##### "C:\Users\  {{"user_name"}}\AppData\Local\Programs\oh-my-posh\themes\sample.omp.json"
 
 ```json
 {
