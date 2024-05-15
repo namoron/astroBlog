@@ -210,7 +210,7 @@ code {
 pre {
   font-size: 12px;
   padding: 1.5em;
-  border-radius: 8px ;
+  border-radius: 8px;
 }
 pre > code {
   all: unset;
