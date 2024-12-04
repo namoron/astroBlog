@@ -1,6 +1,6 @@
 ---
 title: 花火シミュレーター
-description: "Lorem ipsum dolor sit amet"
+description: "MMA Advent Calendar 2024 5日目"
 pubDate: "2024-12-05"
 heroImage: "./2024/fire.JPG"
 ---
