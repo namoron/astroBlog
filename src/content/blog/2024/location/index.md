@@ -24,6 +24,7 @@ Android:<a href="https://play.google.com/store/apps/details?id=org.owntracks.and
 今回はDockerイメージを使用することで簡単にセットアップしました.
 recorder と frontend の2つイメージを使用します.
 recorder は位置情報を受け取り月ごとのファイルに保存し, frontend は保存された位置情報を表示します.
+
 1.最低限の`docker-compose.yml` を追加.
 
 ```yml
@@ -54,11 +55,11 @@ volumes:
 
 ```
 
-3.`docker compose up -d` で起動.
+2.`docker compose up -d` で起動.
 
-4.スマホアプリでエンドポイントをhttp://localhost:8083/pub にして位置情報を送信.
+3.スマホアプリでエンドポイントをhttp://localhost:8083/pub にして位置情報を送信.
 
-5.http://localhost:8083 にアクセスすると以下のように表示されます.
+4.http://localhost:8083 にアクセスすると以下のように表示されます.
 ![owntracks](./owntrack.png)
 <div style="text-align: center;">
 http://localhost:8083
