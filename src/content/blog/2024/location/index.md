@@ -11,7 +11,7 @@ Google からこんな通知が来ました. 2025/06/09 までにスマホで設
 ![notice](./notice.png)
 
 今後は端末にデータが保存され, あくまでバックアップという形でGoogle サーバーに保存されることになります.
-実際に設定を変更すると他の端末やWebからはアクセスできなくなりました. 日記を書き溜めたときやふとした時にロケーション履歴を見返すことがあったので, これは困りました.
+実際に設定を変更すると他の端末やWebからはアクセスできなくなりました. 日記を書き溜めたときや, ふとした時にロケーション履歴を見返すことがあったので, これは困りました.
 
 そこで, Googleに頼らないセルフホスティングで位置情報を保存しブラウザで見ることができるツールを調べて試したので紹介します.
 
@@ -74,7 +74,7 @@ docker-compose.yml を編集することで, より詳細な設定ができま�
 
 6.http://localhost にアクセスすると以下のように表示されます.
 これで時間指定検索や過去の位置情報を確認することができます.
-ただ, 月ごとに大量のrecファイルが作成され, それを読み込んでいるのでデータが増えたときにロードに時間がかかるかもしれないのでDB化したほうがいいかもしれないです.
+ただ, 月ごとに大量のrecファイルが作成され, それを読み込んでいるのでデータが増えたときにロード時間が長くなる可能性があります. データベースを使ったほうがいいかもしれないです.
 ![owntracks frontend](./screenshot.png)
 <div style="text-align: center;">
 マップで表示される位置情報  (公式リポジトリから引用)
@@ -94,7 +94,7 @@ docker-compose.yml を編集することで, より詳細な設定ができま�
 </div>
 
 
-DawarichはGoogle Timeline の代替として絶賛開発中のプロジェクトです. Owntracsのエンドポイントをこの写真をマッピングできたり, 訪れた国や都市の表示, 旅行の記録などGoogle Timeline と同じような機能を提供しています. しかもかっこいい !
+DawarichはGoogle Timeline の代替としてEvgenii Burmakin 氏が絶賛開発しているプロジェクトです. Owntracsのエンドポイントをこの写真をマッピングできたり, 訪れた国や都市の表示, 旅行の記録などGoogle Timeline と同じような機能を提供しています. しかもかっこいい !
 ![dawarich](./sta.png)
 <div style="text-align: center;">
 統計情報  (公式サイトから引用)
@@ -102,16 +102,103 @@ DawarichはGoogle Timeline の代替として絶賛開発中のプロジェク�
 
 ### 使い方
 リポジトリをクローンして, `docker-compose up -d` で起動します.
-Google Timeline のデータをダウンロードして, そのデータをdawarichにアップロードすることで, これまでの位置情報を表示することができます. やり方はを
+Google Timeline のデータをダウンロードして, そのデータをdawarichにアップロードすることで, これまでの位置情報を表示することができます. やり方については
 <a href="https://dawarich.app/blog/migrating-from-google-location-history-to-dawarich">開発者のブログ</a>
-参照してください.
-60MBのGoogle Takeout からダウンロードした6年分のReacords.jsonをインポートするのに数日かかりました.
+を参照してください.
+60MB のGoogle Takeout からダウンロードした6年分のRecords.jsonをインポートするのに数日かかりました.
 ただ,
 http://localhost:3000/sidekiq/
-にて処理状況を下のように表示してくれます
+にて処理状況が以下のように表示されます.
+
 ![dawarich](./dash.png)
 <div style="text-align: center;">
 http://localhost:3000
 </div>
 
+OwnerTracks のアプリのエンドポイントを以下のように設定することで, 位置情報をdawarichに送信することができます.
+```
+http://<your-dawarich-instance>/api/v1/owntracks/points?api_key=<your-api-key>
+```
+### Records.json の加工
+dawrich にインポートするGoogle Takeout からダウンロードしたRecords.json ですが, はずれ値が結構多く含まれていました. そこで, 時刻と座標, 精度を元にフィルタリングするスクリプトを作成しました.詳しくは, https://github.com/namoron/googlemapping に書きました.
+
+無事に, 明らかにおかしい座標を取り除けてデータ量も半分以下にすることができました.
+
+```python
+import json
+from datetime import datetime
+# 速度の閾値（km/h）
+SPEED_THRESHOLD = 1500
+# 位置情報の精度の閾値（m）
+ACCURACY_THRESHOLD = 1000
+# 速度が閾値を超えた場合の停止期間
+STOP_THRESHOLD = 10
+# 入力ファイル名
+INPUT_FILENAME = './Data/Records.json'
+# 出力ファイル名
+OUTPUT_FILENAME = './Data/FilteredRecords.json'
+
+# 速度計算
+def calculate_speed(lat1, lon1, lat2, lon2, time_diff):
+    # 緯度・経度の差から距離を計算（概算）
+    distance = ((lat2 - lat1) ** 2 + (lon2 - lon1) ** 2) ** 0.5 * 111  # km換算
+    return (distance / (time_diff / 3600)) if time_diff > 0 else 0
+
+# 位置情報データのフィルタリング
+def filter_location_data(INPUT_FILENAME, OUTPUT_FILENAME):
+    with open(INPUT_FILENAME, 'r') as infile:
+        data = json.load(infile)
+
+    filtered_locations = []
+    previous_entry = None
+    stop_count=0
+    for entry in data['locations']:
+        try:
+            buff={}
+            accuracy = entry.get('accuracy', float('inf'))
+            timestamp = entry['timestamp']
+            lat = entry['latitudeE7'] / 1e7
+            lon = entry['longitudeE7'] / 1e7
+
+            # 時間差と速度計算の準備
+            if previous_entry:
+                prev_lat = previous_entry['latitudeE7'] / 1e7
+                prev_lon = previous_entry['longitudeE7'] / 1e7
+                prev_time = datetime.fromisoformat(previous_entry['timestamp'][:-1])
+                curr_time = datetime.fromisoformat(timestamp[:-1])
+                time_diff = abs((curr_time - prev_time).total_seconds())
+                speed = calculate_speed(prev_lat, prev_lon, lat, lon, time_diff)
+                # 速度が閾値を超えた場合は一定期間データ削除
+                if speed >=SPEED_THRESHOLD:
+                    stop_count= STOP_THRESHOLD
+                if stop_count > 0:
+                    stop_count-=1
+            else:
+                speed = 0
+
+            # 条件に基づきデータをフィルタリング
+            if accuracy <= ACCURACY_THRESHOLD and speed <= SPEED_THRESHOLD and stop_count == 0:
+                filtered_locations.append({
+                    'latitudeE7': entry['latitudeE7'],
+                    'longitudeE7': entry['longitudeE7'],
+                    'accuracy': accuracy,
+                    'source': entry.get('source'),
+                    'deviceTag': entry.get('deviceTag'),
+                    'deviceDestination': entry.get('deviceDestination'),
+                    'timestamp': timestamp
+                })
+
+            previous_entry = entry
+
+        # データが不完全な場合はスキップ
+        except (KeyError, ValueError):
+            continue
+
+    # フィルタリング結果を新しいJSONファイルに保存
+    with open(OUTPUT_FILENAME, 'w') as outfile:
+        json.dump({'locations': filtered_locations}, outfile, indent=4)
+
+if __name__ == '__main__':
+    filter_location_data(INPUT_FILENAME, OUTPUT_FILENAME)
+```
 
