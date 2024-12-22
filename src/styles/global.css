@@ -172,10 +172,10 @@ a:hover {
   color: var(--accent);
 }
 p {
-  margin-bottom: 1em;
+  margin: 0.2em 0;
 }
 .prose p {
-  margin-bottom: 2em;
+  margin: 0.2em 0;
 }
 textarea {
   width: 100%;
@@ -190,11 +190,9 @@ table {
 img {
   max-width: 70%;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
   height: auto;
   border-radius: 8px;
-  margin-bottom: 0;
+  margin: 1em auto 0.2em auto;
 }
 code {
   padding: 2px 5px;
