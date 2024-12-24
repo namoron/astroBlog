@@ -1,0 +1,30 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header title={SITE_TITLE} />
+		<main>
+			<h2 class="text-center"	>About Me</h2>
+			このサイトは,<a href="https://astro.build/">Astro.js</a>で作成して，<a href="https://www.cloudflare.com/ja-jp/">Cloudflare</a>でホスティングしています．
+<br/>
+<br/>
+これまで<a href="https://www.netlify.com/">Netlify</a>でホスティングしていましたが,Google Domein がサービス終了したため	Cloudflare にドメインを移管したついでにブログもそこで運用するようになりました.
+<h3>資格</h3>
+<ul>
+	<li>普通自動車免許</li>
+	<li>第二種電気工事士</li>
+	<li>煙火消費保安手帳</li>
+</ul>
+		</main>
+		<Footer />
+	</body>
+</html>
