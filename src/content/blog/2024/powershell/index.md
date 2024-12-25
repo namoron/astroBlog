@@ -36,9 +36,17 @@ Powershell のプロファイルの上部を書いておけば幸せになりま
 
 ```ps1
 remove-item alias:ls
+
 Import-Module posh-git
 
-Set-PSReadLineOption -PredictionSource History
+Import-Module PSReadLine
+Set-PSReadLineOption -HistorySearchCursorMovesToEnd
+Set-PSReadLineKeyHandler -Key Ctrl+k -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Key Ctrl+j -Function HistorySearchForward
+Set-PSReadlineOption -HistoryNoDuplicates
+Set-PSReadLineOption -WordDelimiters ";:,.[]{}()/\|^&*-=+'`" !?@#$%&_<>「」（）『』『』［］、，。：；／"
+
+Set-PSReadLineOption   -PredictionSource History
 Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 
 # set-alias ls eza
@@ -56,13 +64,12 @@ function lt() {
     eza -T -L 3 -a -I 'node_modules|.git|.cache' --icons
 }
 
-#とりあえず以上を書いとけば幸せ
 #######################################################################################
 # 以下はおまけ
 
 set-alias vi "C:\Program Files\Vim\vim90\vim.exe"
-set-alias vim "C:\Program Files\Vim\vim90\vim.exe"
-
+set-alias vim "C:\Program Files\Vim\vim90\vim.exe"	
+ 
 function Invoke-As-Admin() {
     if ($args.count -eq 0) {
         gsudo
@@ -74,7 +81,7 @@ function Invoke-As-Admin() {
 
 Set-Alias -Name: "sudo" -Value: "Invoke-As-Admin"
 
-Import-Module "$($(Get-Item $(Get-Command scoop.ps1).Path).Directory.Parent.FullName)\modules\scoop-completion"
+#Import-Module "$($(Get-Item $(Get-Command scoop.ps1).Path).Directory.Parent.FullName)\modules\scoop-completion"
 
 oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\sample.omp.json" | Invoke-Expression
 #oh-my-posh init pwsh --config '"C:\Users\shiro\scoop\apps\oh-my-posh\current\themes\illusi0n.omp.json"' | Invoke-Expression
@@ -100,9 +107,13 @@ Register-ArgumentCompleter -CommandName ssh, scp -Native -ScriptBlock {
 
 if(-not $env:path.Split(';').Contains('.')){
     $env:path += ";."
-}
+}	
 
 
+#f45873b3-b655-43a6-b217-97c00aa0db58 PowerToys CommandNotFound module
+
+Import-Module -Name Microsoft.WinGet.CommandNotFound
+#f45873b3-b655-43a6-b217-97c00aa0db58
 
 ```
 
