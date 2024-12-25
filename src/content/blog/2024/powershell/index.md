@@ -36,6 +36,7 @@ Powershell のプロファイルの上部を書いておけば幸せになりま
 
 ```ps1
 remove-item alias:ls
+Set-PSReadLineKeyHandler -Chord "Ctrl+Enter" -Function AcceptSuggestion
 
 Import-Module posh-git
 
@@ -43,8 +44,11 @@ Import-Module PSReadLine
 Set-PSReadLineOption -HistorySearchCursorMovesToEnd
 Set-PSReadLineKeyHandler -Key Ctrl+k -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key Ctrl+j -Function HistorySearchForward
+
 Set-PSReadlineOption -HistoryNoDuplicates
 Set-PSReadLineOption -WordDelimiters ";:,.[]{}()/\|^&*-=+'`" !?@#$%&_<>「」（）『』『』［］、，。：；／"
+
+
 
 Set-PSReadLineOption   -PredictionSource History
 Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
@@ -110,11 +114,11 @@ if(-not $env:path.Split(';').Contains('.')){
 }	
 
 
+
 #f45873b3-b655-43a6-b217-97c00aa0db58 PowerToys CommandNotFound module
 
 Import-Module -Name Microsoft.WinGet.CommandNotFound
 #f45873b3-b655-43a6-b217-97c00aa0db58
-
 ```
 
 ### wezterm のプロファイル
