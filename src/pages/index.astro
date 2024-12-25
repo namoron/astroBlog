@@ -10,8 +10,20 @@ import { GoogleAnalytics } from 'astro-google-analytics';
 <html lang="en">
 	<head prefix="og: https://ogp.me/ns#">
     <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SQGJ9QH46Q"></script>
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-SQGJ9QH46Q"></script> -->
 
+  <script
+  type="text/partytown"
+  src="https://www.googletagmanager.com/gtag/js?id=G-SQGJ9QH46Q">
+</script>
+<script type="text/partytown">
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "G-SQGJ9QH46Q");
+</script>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
