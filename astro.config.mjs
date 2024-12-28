@@ -3,15 +3,18 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 
 import tailwind from "@astrojs/tailwind";
-import remarkCodeTitles from "remark-flexible-code-titles";
-
+import remarkLinkCard from "remark-link-card";
+import rehypeRaw from "rehype-raw";
+import rehypeExternalLinks from "rehype-external-links";
 // https://astro.build/config
 export default defineConfig({
   site: "https://example.com",
   integrations: [mdx(), sitemap(), tailwind()],
-  // markdown: {
-  //   remarkPlugins: [remarkCodeTitles],
-  // },
+
+  markdown: {
+    remarkPlugins: [[remarkLinkCard, { shortenUrl: true }]],
+    rehypePlugins: [rehypeRaw, [rehypeExternalLinks, { target: "_blank" }]],
+  },
   // integrations: [
   //   tailwind({
   //     // Example: Provide a custom path to a Tailwind config file

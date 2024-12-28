@@ -3,7 +3,10 @@
   https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
-
+::selection {
+  color: #fff;
+  background-color: #4b4b4b;
+}
 :root {
   --accent: #2337ff;
   --accent-dark: #000d8a;
@@ -249,4 +252,118 @@ hr {
   clip-path: inset(50%);
   /* added line to stop words getting smushed together (as they go onto seperate lines and some screen readers do not understand line feeds as a space */
   white-space: nowrap;
+}
+
+.rlc-container {
+  padding: 0.7rem 1rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: background-color 150ms;
+  width: 100%;
+  margin-bottom: 1.25em;
+  display: grid;
+  grid-template-columns: 1fr 116px;
+  gap: 1rem;
+}
+
+.rlc-container:hover {
+  background-color: #f5f5f5;
+}
+
+@media (prefers-color-scheme: dark) {
+  .rlc-container:hover {
+    background-color: #dbdbdb;
+  }
+}
+
+@media (min-width: 60ch) {
+  .rlc-container {
+    grid-template-columns: 1fr 220px;
+  }
+}
+
+.rlc-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-weight: normal;
+  grid-column: 1;
+  padding: 0.7rem 0 0.7rem 1rem;
+  max-width: 100%;
+  min-width: 100%;
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.rlc-title {
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1.3;
+  color: #333;
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.rlc-description {
+  font-size: 0.8rem;
+  color: #737373;
+  margin-bottom: 0.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-line-clamp: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  .rlc-description {
+    color: #a3a3a3;
+  }
+}
+
+.rlc-url-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rlc-favicon {
+  margin-top: 0.15rem;
+  margin-bottom: 0;
+}
+
+.rlc-url {
+  font-size: 0.8rem;
+  color: #525252;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-line-clamp: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  .rlc-url {
+    color: #d4d4d4;
+  }
+}
+
+.rlc-image-container {
+  grid-column: 2;
+  aspect-ratio: 1 / 1;
+}
+
+@media (min-width: 60ch) {
+  .rlc-image-container {
+    aspect-ratio: 1.91 / 1;
+  }
+}
+
+.rlc-image {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  border-radius: 0 0.5rem 0.5rem 0;
 }
