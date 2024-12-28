@@ -363,7 +363,7 @@ hr {
 .rlc-image {
   object-fit: cover;
   height: 100%;
-  width: 100%;
+  width: 60%;
   margin: 0;
   border-radius: 0 0.5rem 0.5rem 0;
 }

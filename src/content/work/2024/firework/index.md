@@ -4,6 +4,7 @@ description: "MMA Advent Calendar 2024 5日目"
 pubDate: "2024-12-05"
 heroImage: "./2024/fire.JPG"
 ---
+https://namorz.com/work/2024/firework/
 ## この記事は, <a href="https://adventar.org/calendars/10770">MMA Advent Calendar 2024</a> 5日目の記事です．
 
 ### はじめに

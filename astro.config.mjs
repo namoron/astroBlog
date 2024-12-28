@@ -8,7 +8,7 @@ import rehypeRaw from "rehype-raw";
 import rehypeExternalLinks from "rehype-external-links";
 // https://astro.build/config
 export default defineConfig({
-  site: "https://example.com",
+  site: "https://namorz.com",
   integrations: [
     mdx(),
     sitemap(),
