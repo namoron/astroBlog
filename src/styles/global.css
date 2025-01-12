@@ -197,6 +197,9 @@ img {
   border-radius: 8px;
   margin: 1em auto 0.2em auto;
 }
+#workLi > img {
+  width: 30%;
+}
 code {
   padding: 2px 5px;
   background-color: rgb(var(--gray-light));

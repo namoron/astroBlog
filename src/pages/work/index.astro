@@ -25,10 +25,9 @@ const posts = (await getCollection('work')).sort(
 					{
 						posts.map((post) => (
 							<li  class="px-0 py-2">
-								<a class="block rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300  flex flex-col justify-center items-center" href={`/work/${post.slug}/`}>
-									<img class="mt-6" width={200} height={200} src={post.data.heroImage} alt="" />
-									<div class="p-4 text-center"></div>
-									<h4 class="text-xl mb-2">{post.data.title}</h4>
+								<a  id="workLi"class="block rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300  flex flex-col justify-center items-center" href={`/work/${post.slug}/`}>
+									<img class="mt-6"  width={10} height={10} src={post.data.heroImage} alt="" />
+									<h4 class="text-xl mb-1 mt-1">{post.data.title}</h4>
 									<p class="text-gray-600">
 										<FormattedDate date={post.data.pubDate} />
 									</p>
