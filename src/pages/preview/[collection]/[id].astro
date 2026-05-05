@@ -21,6 +21,20 @@ export async function getStaticPaths() {
 
 const { collection, slug } = Astro.props;
 const destination = `/${collection}/${slug}/`;
-
-return Astro.redirect(destination, 302);
 ---
+
+<!doctype html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="refresh" content={`0; url=${destination}`} />
+		<link rel="canonical" href={destination} />
+		<title>Redirecting...</title>
+	</head>
+	<body>
+		<a href={destination}>Redirecting...</a>
+		<script is:inline define:vars={{ destination }}>
+			window.location.replace(destination);
+		</script>
+	</body>
+</html>
