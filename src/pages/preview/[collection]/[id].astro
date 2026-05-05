@@ -1,0 +1,26 @@
+---
+import { getPosts } from '../../../lib/content';
+
+export async function getStaticPaths() {
+	const collections = ['blog', 'work'] as const;
+	const paths = [];
+
+	for (const collection of collections) {
+		const posts = await getPosts(collection);
+
+		for (const post of posts) {
+			paths.push({
+				params: { collection, id: post.id },
+				props: { collection, slug: post.slug },
+			});
+		}
+	}
+
+	return paths;
+}
+
+const { collection, slug } = Astro.props;
+const destination = `/${collection}/${slug}/`;
+
+return Astro.redirect(destination, 302);
+---

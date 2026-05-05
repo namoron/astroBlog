@@ -95,6 +95,14 @@ For Cloudflare Pages, set the same values in the project environment variables.
 Add a Cloudflare Pages Deploy Hook to microCMS Webhook settings to rebuild the
 static site when posts are published or updated.
 
+Screen preview URLs can use only `{CONTENT_ID}` and `{DRAFT_KEY}` in microCMS.
+Use these redirect URLs to open the public slug URL:
+
+```text
+https://namorz.com/preview/blog/{CONTENT_ID}
+https://namorz.com/preview/work/{CONTENT_ID}
+```
+
 ## 👀 Want to learn more?
 
 Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
