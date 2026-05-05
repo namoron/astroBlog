@@ -1,12 +1,16 @@
 ---
-import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import { GoogleAnalytics } from 'astro-google-analytics';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = {
+	title: string;
+	description: string;
+	pubDate: Date;
+	updatedDate?: Date;
+	heroImage?: string;
+};
 
 const { title, description, pubDate, updatedDate} = Astro.props;
 ---
@@ -107,10 +111,11 @@ const { title, description, pubDate, updatedDate} = Astro.props;
 		</style>
 		<link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 		<script
+		is:inline
 		type="text/partytown"
 		src="https://www.googletagmanager.com/gtag/js?id=G-SQGJ9QH46Q">
 	  </script>
-	  <script type="text/partytown">
+	  <script is:inline type="text/partytown">
 		window.dataLayer = window.dataLayer || [];
 		function gtag() {
 		  dataLayer.push(arguments);
@@ -148,7 +153,7 @@ const { title, description, pubDate, updatedDate} = Astro.props;
 			</a>
 			<!-- <button id="back-to-top">TOP</button> -->
 			<div style="  position:absolute; right: 4em; padding: 10px 0;">
-				<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="namor" data-color="#FFDD00" data-emoji="☕"  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+				<script is:inline type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="namor" data-color="#FFDD00" data-emoji="☕"  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
 			</div>
 		</main>
 		<Footer />

@@ -7,24 +7,31 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "import:blog": "node scripts/import-content-to-microcms.mjs --publish",
+    "import:blog:dry-run": "node scripts/import-content-to-microcms.mjs --dry-run",
+    "import:work": "node scripts/import-content-to-microcms.mjs --work --publish",
+    "import:work:dry-run": "node scripts/import-content-to-microcms.mjs --work --dry-run"
   },
   "dependencies": {
-    "@astrojs/check": "^0.7.0",
-    "@astrojs/mdx": "^4.0.3",
-    "@astrojs/rss": "^4.0.6",
-    "@astrojs/sitemap": "^3.1.5",
-    "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/check": "^0.9.9",
+    "@astrojs/mdx": "^5.0.4",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.2",
+    "@tailwindcss/vite": "^4.1.17",
+    "astro": "^6.2.2",
+    "astro-google-analytics": "^1.0.3",
+    "gray-matter": "^4.0.3",
+    "marked": "^18.0.3",
+    "microcms-js-sdk": "^3.4.0",
     "rehype-external-links": "^3.0.0",
     "rehype-raw": "^7.0.0",
-    "astro": "^5.1.1",
-    "astro-google-analytics": "^1.0.3",
-    "remark-flexible-code-titles": "^1.2.0",
+    "remark-flexible-code-titles": "^1.3.3",
     "remark-link-card": "^1.3.1",
-    "tailwindcss": "^3.4.3",
-    "typescript": "^5.3.3"
+    "tailwindcss": "^4.1.17",
+    "typescript": "^6.0.3"
   },
   "devDependencies": {
-    "@astrojs/partytown": "^2.1.2"
+    "@astrojs/partytown": "^2.1.7"
   }
 }

@@ -59,6 +59,42 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
+## microCMS
+
+Blog posts can be loaded from microCMS. If the microCMS environment variables
+are not set, the site falls back to the local Markdown posts in `src/content/blog`.
+
+Create a microCMS list API with endpoint `blog` and these fields:
+
+| Field | Type | Required |
+| :---- | :--- | :------- |
+| `slug` | Text field | Yes |
+| `title` | Text field | Yes |
+| `description` | Text area | No |
+| `content` | Rich editor | No |
+| `pubDate` | Date and time | No |
+| `updatedDate` | Date and time | No |
+| `heroImage` | Image | No |
+
+Local setup:
+
+```sh
+cp .env.example .env
+```
+
+Then set:
+
+```text
+MICROCMS_SERVICE_DOMAIN=your-service-domain
+MICROCMS_API_KEY=your-api-key
+MICROCMS_BLOG_ENDPOINT=blog
+MICROCMS_WORK_ENDPOINT=work
+```
+
+For Cloudflare Pages, set the same values in the project environment variables.
+Add a Cloudflare Pages Deploy Hook to microCMS Webhook settings to rebuild the
+static site when posts are published or updated.
+
 ## 👀 Want to learn more?
 
 Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

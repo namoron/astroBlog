@@ -2,7 +2,7 @@ import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import partytown from "@astrojs/partytown";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import remarkLinkCard from "remark-link-card";
 import rehypeRaw from "rehype-raw";
 import rehypeExternalLinks from "rehype-external-links";
@@ -12,7 +12,6 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap(),
-    tailwind(),
     partytown({
       // Adds dataLayer.push as a forwarding-event.
       config: {
@@ -25,10 +24,7 @@ export default defineConfig({
     remarkPlugins: [[remarkLinkCard, { shortenUrl: true }]],
     rehypePlugins: [rehypeRaw, [rehypeExternalLinks, { target: "_blank" }]],
   },
-  // integrations: [
-  //   tailwind({
-  //     // Example: Provide a custom path to a Tailwind config file
-  //     configFile: "./tailwind.config.mjs",
-  //   }),
-  // ],
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });
